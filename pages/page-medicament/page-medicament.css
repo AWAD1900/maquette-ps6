@@ -1,0 +1,14 @@
+.page-medicament {
+  padding: 1.5rem;
+}
+
+.page-medicament h1 {
+  font-size: 1.6rem;
+  color: #2d3440;
+  margin-bottom: 0.5rem;
+}
+
+.page-medicament p {
+  color: #81818e;
+  font-size: 1rem;
+}

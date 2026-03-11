@@ -1,0 +1,11 @@
+<template>
+    <link rel="stylesheet" href="components/sidebar/sidebar-group/sidebar-group.css" />
+    <section class="sidebar-group" role="region">
+        <header class="sidebar-group-header">
+            <slot name="sidebar-group-title" class="sidebar-group-title"></slot>
+        </header>
+        <div class="sidebar-group-content" role="list">
+            <slot></slot>
+        </div>
+    </section>
+</template>

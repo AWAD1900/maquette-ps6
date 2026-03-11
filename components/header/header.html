@@ -1,0 +1,45 @@
+<template>
+  <link rel="stylesheet" href="components/header/header.css" />
+  <header>
+    <div class="header-content">
+      <div class="logo">
+        <span class="logo-text">Logo</span>
+      </div>
+      <nav>
+        <ul class="nav-menu">
+          <nav-link
+            icon="https://www.svgrepo.com/show/532084/calendar.svg"
+            text="Calendrier"
+            link="#/calendrier"
+            active
+          ></nav-link>
+          <nav-link
+            icon="https://www.svgrepo.com/show/532363/users.svg"
+            text="Contacts"
+            link="#/contacts"
+          ></nav-link>
+          <nav-link
+            icon="https://www.svgrepo.com/show/532879/puzzle.svg"
+            text="Quiz du jour"
+            link="#/quiz"
+          ></nav-link>
+          <nav-link
+            icon="https://www.svgrepo.com/show/532032/cog.svg"
+            text="Paramètres"
+            link="#/parametres"
+          ></nav-link>
+        </ul>
+      </nav>
+      <div class="profil">
+        <div class="profil-info">
+          <img
+            src="https://www.svgrepo.com/show/496485/profile-circle.svg"
+            alt="Avatar"
+            class="profil-avatar"
+          />
+          <span class="profil-name">Marie</span>
+        </div>
+      </div>
+    </div>
+  </header>
+</template>

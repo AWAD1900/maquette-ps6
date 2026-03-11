@@ -1,1 +1,43 @@
-/* write global styles here */
+:root {
+  --color-primary: #e4a247;
+  --color-primary-hover: #d4932f;
+  --color-bg: #ffffff;
+  --color-text: #2d3440;
+  --color-text-muted: #81818e;
+  --color-border: #ebe7e0;
+  --color-hover: #f5f0e8;
+  --color-active-text: #ffffff;
+  --sidebar-width: 200px;
+  --font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  font-family: var(--font-family);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    "header header"
+    "aside main";
+  color: var(--color-text);
+  background: var(--color-bg);
+}
+
+app-header {
+  grid-area: header;
+}
+
+app-sidebar {
+  grid-area: aside;
+}
+
+main {
+  grid-area: main;
+}
