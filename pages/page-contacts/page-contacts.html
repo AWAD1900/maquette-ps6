@@ -1,7 +1,49 @@
 <template>
+  <style>
+    app-dialog:not([open]) {
+      display: none !important;
+    }
+  </style>
   <link rel="stylesheet" href="pages/page-contacts/page-contacts.css" />
   <div class="page-contacts">
-    <h1>Contacts</h1>
-    <p>Gérez vos contacts</p>
+    <h1>Contacts importants</h1>
+    <p>Personnes clés visibles par Roger sur son profil</p>
+
+    <div class="controls" style="margin:1rem 0">
+      <app-add-contact></app-add-contact>
+    </div>
+
+    <div class="contacts-list" id="contacts-list">
+      <app-contact name="Sophie Martin" role="Fille • Famille" phone="06 12 34 56 78" avatar="https://www.svgrepo.com/show/496485/profile-circle.svg"></app-contact>
+      <app-contact name="Dr. Lefebvre" role="Médecin traitant" phone="01 44 55 66 77" avatar="https://www.svgrepo.com/show/496485/profile-circle.svg"></app-contact>
+      <app-contact name="Pierre Martin" role="Fils • Famille" phone="06 98 76 54 32" avatar="https://www.svgrepo.com/show/496485/profile-circle.svg"></app-contact>
+      <app-contact name="Infirmière Céline" role="Personnel centre de jour" phone="01 23 45 67 89" avatar="https://www.svgrepo.com/show/496485/profile-circle.svg"></app-contact>
+      <app-contact name="Vétérinaire" role="Cabinet vétérinaire Montparnasse" phone="01 33 44 55 66" avatar="https://www.svgrepo.com/show/496485/profile-circle.svg"></app-contact>
+    </div>
+
+    <!-- Dialog: Nouveau contact -->
+    <app-dialog id="dialog-new-contact">
+      <div slot="dialog-header" class="dialog-title">
+        <span>👤</span> Nouveau contact
+      </div>
+      <form slot="dialog-body" class="form-new-contact" id="form-new-contact">
+        <div class="form-group">
+          <label class="form-label">Nom</label>
+          <input type="text" class="form-input" id="input-name" placeholder="Ex: Sophie Martin" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Rôle</label>
+          <input type="text" class="form-input" id="input-role" placeholder="Ex: Fille • Famille" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Téléphone</label>
+          <input type="tel" class="form-input" id="input-phone" placeholder="Ex: 06 12 34 56 78" required />
+        </div>
+      </form>
+      <div slot="dialog-footer" class="dialog-actions">
+        <button type="button" class="btn-cancel" id="btn-cancel">Annuler</button>
+        <button type="button" class="btn-add" id="btn-add">✓ Ajouter le contact</button>
+      </div>
+    </app-dialog>
   </div>
 </template>

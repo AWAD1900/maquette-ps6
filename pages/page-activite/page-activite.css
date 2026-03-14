@@ -12,3 +12,7 @@
   color: #81818e;
   font-size: 1rem;
 }
+
+.page-activite {
+    min-height: 150vh;
+}

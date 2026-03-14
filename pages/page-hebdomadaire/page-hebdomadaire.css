@@ -1,3 +1,12 @@
+:host {
+  display: block;
+  min-height: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 .page-hebdomadaire {
   padding: 1.5rem;
 }

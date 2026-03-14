@@ -1,0 +1,43 @@
+:host {
+  display: block;
+}
+
+.setting-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1.5px solid #ebe7e0;
+}
+
+/* Remove border from the last item when used recursively inside a container */
+:host(:last-child) .setting-item {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+:host(:first-child) .setting-item {
+  padding-top: 0;
+}
+
+.setting-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding-right: 1.5rem;
+}
+
+.setting-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #2d3440;
+}
+
+.setting-description {
+  font-size: 0.85rem;
+  color: #81818e;
+}
+
+.setting-action {
+  flex-shrink: 0;
+}

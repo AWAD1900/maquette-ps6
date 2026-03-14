@@ -1,7 +1,205 @@
 <template>
   <link rel="stylesheet" href="pages/page-parametres/page-parametres.css" />
   <div class="page-parametres">
-    <h1>Paramètres</h1>
-    <p>Configurez l'application</p>
+    <div class="page-header">
+      <div class="header-icon"></div>
+      <div class="header-text">
+        <h1>Paramètres du profil</h1>
+        <p>Adaptez l'interface au stade d'évolution et aux besoins de Roger</p>
+      </div>
+    </div>
+
+    <app-card class="profile-card">
+      <div slot="card-body" class="profile-card-body">
+        <div class="profile-info">
+          <img src="https://www.svgrepo.com/show/496485/profile-circle.svg" alt="Roger" class="profile-avatar" />
+          <div class="profile-details">
+            <h2>Roger Martin</h2>
+            <p>Né le 14 avril 1970 · Centre de jour Les Lilas - Paris 11e</p>
+            <span class="badge badge-stage">Stade modéré</span>
+          </div>
+        </div>
+      </div>
+    </app-card>
+
+    <app-card class="stage-section">
+      <div slot="card-header">
+        <h2 class="section-title">Stade de la maladie d'Alzheimer</h2>
+        <p class="section-subtitle">Le stade sélectionné adapte automatiquement l'interface du profil accueilli : taille des textes, complexité des informations, nombre d'événements affichés, et difficulté du quiz.</p>
+      </div>
+      <div slot="card-body">
+        <div class="stages-grid">
+          <button class="stage-card">
+             <div class="stage-icon"></div>
+             <h3>Léger</h3>
+             <p>Autonomie préservée, légers oublis, orientation maintenue</p>
+             <div class="stage-tags">
+                <span class="tag">Quiz complet</span>
+                <span class="tag">4+ événements</span>
+                <span class="tag">Textes normaux</span>
+             </div>
+          </button>
+          <button class="stage-card active">
+             <div class="check-icon">✓</div>
+             <div class="stage-icon"></div>
+             <h3>Modéré</h3>
+             <p>Difficultés croissantes, besoin d'accompagnement régulier</p>
+             <div class="stage-tags">
+                <span class="tag">Quiz simplifié</span>
+                <span class="tag">3 événements</span>
+                <span class="tag">Grands textes</span>
+             </div>
+          </button>
+          <button class="stage-card">
+             <div class="stage-icon"></div>
+             <h3>Sévère</h3>
+             <p>Dépendance importante, communication simplifiée et visuelle</p>
+             <div class="stage-tags">
+                <span class="tag">Pas de quiz</span>
+                <span class="tag">2 événements</span>
+                <span class="tag">Très grands textes</span>
+                <span class="tag">Icônes larges</span>
+             </div>
+          </button>
+        </div>
+        <div class="impact-box">
+          <h4>✦ IMPACT SUR LE PROFIL DE ROGER</h4>
+          <ul>
+            <li>→ Grands caractères activés automatiquement (22px)</li>
+            <li>→ Programme limité à 3 événements avec icônes plus larges</li>
+            <li>→ Quiz simplifié : questions sur la vie personnelle uniquement</li>
+            <li>→ Bouton "Lendemain" visible mais discret</li>
+            <li>→ Contacts affichés uniquement avec prénom et photo</li>
+          </ul>
+        </div>
+      </div>
+    </app-card>
+
+    <div class="settings-grid">
+      <app-card>
+        <div slot="card-header">
+           <h3 class="section-title">Affichage & lisibilité</h3>
+           <p class="section-subtitle">Personnalisez la présentation pour Roger</p>
+        </div>
+        <div slot="card-body">
+           <setting-item>
+             <span slot="title">Grands caractères</span>
+             <span slot="description">Augmente la taille des textes sur le profil accueilli</span>
+             <toggle-switch slot="action" checked></toggle-switch>
+           </setting-item>
+           <setting-item>
+             <span slot="title">Contraste élevé</span>
+             <span slot="description">Améliore la lisibilité en renforçant les contrastes</span>
+             <toggle-switch slot="action"></toggle-switch>
+           </setting-item>
+           <setting-item>
+             <span slot="title">Mode "nuit" automatique</span>
+             <span slot="description">Fond sombre après 20h pour préserver le sommeil</span>
+             <toggle-switch slot="action"></toggle-switch>
+           </setting-item>
+           <setting-item>
+             <span slot="title">Taille de police <strong style="color: #e4a247">14px</strong></span>
+             <span slot="description"></span>
+             <div slot="action" class="slider-container">
+               <span style="font-size: 0.8rem">A</span>
+               <input type="range" min="12" max="24" value="14" class="font-slider" />
+               <span style="font-size: 1.2rem">A</span>
+             </div>
+           </setting-item>
+        </div>
+      </app-card>
+
+      <app-card>
+        <div slot="card-header">
+           <h3 class="section-title">Rappels & notifications</h3>
+           <p class="section-subtitle">Gérez les alertes pour vous et Roger</p>
+        </div>
+        <div slot="card-body">
+           <setting-item>
+             <span slot="title">Rappel médicaments</span>
+             <span slot="description">Alerte sonore à l'heure de la prise</span>
+             <toggle-switch slot="action" checked></toggle-switch>
+           </setting-item>
+           <setting-item>
+             <span slot="title">Rappel RDV (1h avant)</span>
+             <span slot="description">Notification sur le profil accueilli</span>
+             <toggle-switch slot="action" checked></toggle-switch>
+           </setting-item>
+           <setting-item>
+             <span slot="title">Résumé quotidien aidant</span>
+             <span slot="description">Email récapitulatif chaque soir à 19h</span>
+             <toggle-switch slot="action"></toggle-switch>
+           </setting-item>
+           <setting-item>
+             <span slot="title">Alerte si Roger n'interagit pas</span>
+             <span slot="description">Notification si aucune action après 2h</span>
+             <toggle-switch slot="action"></toggle-switch>
+           </setting-item>
+        </div>
+      </app-card>
+
+      <app-card>
+        <div slot="card-header">
+           <h3 class="section-title">Contenu affiché à Roger</h3>
+           <p class="section-subtitle">Choisissez les modules visibles sur son écran</p>
+        </div>
+        <div slot="card-body">
+           <setting-item>
+             <span slot="title">Horloge & date</span>
+             <span slot="description">Toujours visible en grand format</span>
+             <toggle-switch slot="action" checked></toggle-switch>
+           </setting-item>
+           <setting-item>
+             <span slot="title">Météo du jour</span>
+             <span slot="description"></span>
+             <toggle-switch slot="action" checked></toggle-switch>
+           </setting-item>
+           <setting-item>
+             <span slot="title">Message du jour</span>
+             <span slot="description">Message personnalisé par l'aidant</span>
+             <toggle-switch slot="action" checked></toggle-switch>
+           </setting-item>
+           <setting-item>
+             <span slot="title">Quiz du jour</span>
+             <span slot="description"></span>
+             <toggle-switch slot="action" checked></toggle-switch>
+           </setting-item>
+           <setting-item>
+             <span slot="title">Bouton "Voir le lendemain"</span>
+             <span slot="description">Permet d'anticiper les événements du jour suivant</span>
+             <toggle-switch slot="action" checked></toggle-switch>
+           </setting-item>
+        </div>
+      </app-card>
+
+      <app-card>
+        <div slot="card-header">
+           <h3 class="section-title">Accès & sécurité</h3>
+           <p class="section-subtitle">Protégez le profil aidant</p>
+        </div>
+        <div slot="card-body">
+           <setting-item>
+             <span slot="title">PIN de connexion aidant</span>
+             <span slot="description">Code à 4 chiffres pour protéger les réglages</span>
+             <button slot="action" class="btn-outline">Modifier</button>
+           </setting-item>
+           <setting-item>
+             <span slot="title">Verrouillage automatique</span>
+             <span slot="description">Retour au profil accueilli après 5 min d'inactivité</span>
+             <toggle-switch slot="action" checked></toggle-switch>
+           </setting-item>
+           <setting-item>
+             <span slot="title">Accès multi-aidants</span>
+             <span slot="description">Autoriser plusieurs comptes aidants</span>
+             <toggle-switch slot="action"></toggle-switch>
+           </setting-item>
+        </div>
+      </app-card>
+    </div>
+
+    <div class="page-footer">
+       <button class="btn-reset">Réinitialiser</button>
+       <button class="btn-save">✓ Enregistrer les paramètres</button>
+    </div>
   </div>
 </template>

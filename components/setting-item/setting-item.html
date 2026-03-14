@@ -1,0 +1,12 @@
+<template>
+  <link rel="stylesheet" href="components/setting-item/setting-item.css" />
+  <div class="setting-item">
+    <div class="setting-info">
+      <div class="setting-title"><slot name="title"></slot></div>
+      <div class="setting-description"><slot name="description"></slot></div>
+    </div>
+    <div class="setting-action">
+      <slot name="action"></slot>
+    </div>
+  </div>
+</template>

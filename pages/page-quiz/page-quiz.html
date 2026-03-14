@@ -1,7 +1,83 @@
 <template>
+  <style>
+    app-dialog:not([open]) {
+      display: none !important;
+    }
+  </style>
   <link rel="stylesheet" href="pages/page-quiz/page-quiz.css" />
   <div class="page-quiz">
-    <h1>Quiz du jour</h1>
-    <p>Testez votre mémoire</p>
+    <!-- Page header -->
+    <div class="page-header">
+      <h1>Quiz du jour</h1>
+      <p class="subtitle">Créez des questions pour stimuler la mémoire de Roger</p>
+      <button class="btn-create" id="btn-create-question">+ Créer une question</button>
+    </div>
+
+    <!-- Question list -->
+    <div class="questions-list">
+      <quiz-question>
+        <span slot="status">Question du jour - Active ✓</span>
+        <span slot="question">Comment s'appelle votre petite-fille ?</span>
+        <img slot="image" src="https://images.unsplash.com/photo-1603977385628-d7e6d19f0370?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Gratin dauphinois" />
+        <quiz-answer slot="answers" correct>Lucie</quiz-answer>
+        <quiz-answer slot="answers">Emma</quiz-answer>
+        <quiz-answer slot="answers">Clara</quiz-answer>
+      </quiz-question>
+
+      <quiz-question>
+        <span slot="status">Question archivée - 6 mars</span>
+        <span slot="question">Dans quelle ville avez-vous vécu le plus longtemps ?</span>
+        <img slot="image" src="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Gratin dauphinois" />
+        <quiz-answer slot="answers" correct>Lyon</quiz-answer>
+        <quiz-answer slot="answers">Paris</quiz-answer>
+        <quiz-answer slot="answers">Bordeaux</quiz-answer>
+      </quiz-question>
+
+      <quiz-question>
+        <span slot="status">Question archivée - 2 mars</span>
+        <span slot="question">Quel est votre plat préféré ?</span>
+        <img slot="image" src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Zm9vZHxlbnwwfHwwfHx8MA%3D%3D" alt="Gratin dauphinois" />
+        <quiz-answer slot="answers" correct>Gratin dauphinois</quiz-answer>
+        <quiz-answer slot="answers">Coq au vin</quiz-answer>
+        <quiz-answer slot="answers">Bouillabaisse</quiz-answer>
+      </quiz-question>
+    </div>
+
+    <!-- Dialog: Nouvelle question -->
+    <app-dialog id="dialog-new-question">
+      <div slot="dialog-header" class="dialog-title">
+        Nouvelle question quiz
+      </div>
+      <form slot="dialog-body" class="form-new-question" id="form-new-question">
+        <div class="form-group">
+          <label class="form-label">Question</label>
+          <input type="text" class="form-input" id="input-question" placeholder="Ex: Comment s'appelle votre petite-fille ?" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Image (optionnel)</label>
+          <input type="file" class="form-input" id="input-image" accept="image/*" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">✓ Bonne réponse</label>
+          <input type="text" class="form-input" id="input-correct" placeholder="La réponse correcte" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Mauvaise réponse 1</label>
+          <input type="text" class="form-input" id="input-wrong1" placeholder="Choix incorrect" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Mauvaise réponse 2</label>
+          <input type="text" class="form-input" id="input-wrong2" placeholder="Choix incorrect" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Aide (optionnel)</label>
+          <input type="text" class="form-input" placeholder="Ex: Indice si Roger a du mal..." />
+        </div>
+      </form>
+      <div slot="dialog-footer" class="dialog-actions">
+        <button type="button" class="btn-cancel" id="btn-cancel">Annuler</button>
+        <button type="submit" class="btn-publish" id="btn-publish">✓ Publier la question</button>
+      </div>
+    </app-dialog>
   </div>
 </template>

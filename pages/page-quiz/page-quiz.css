@@ -1,14 +1,148 @@
+:host {
+  display: block;
+  min-height: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 .page-quiz {
-  padding: 1.5rem;
+  padding: 2rem 2.5rem;
+  background: #fdf8f2;
+  min-height: 100%;
 }
 
-.page-quiz h1 {
+/* ── Page header ── */
+.page-header {
+  margin-bottom: 1.75rem;
+}
+
+.page-header h1 {
   font-size: 1.6rem;
+  font-weight: 700;
   color: #2d3440;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
 }
 
-.page-quiz p {
+.subtitle {
   color: #81818e;
-  font-size: 1rem;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+}
+
+.btn-create {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.6rem 1.25rem;
+  background: #e4a247;
+  color: #ffffff;
+  font-size: 0.88rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 150ms ease;
+}
+
+.btn-create:hover {
+  background: #d4932f;
+}
+
+/* ── Question list ── */
+.questions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* ── Dialog form ── */
+.dialog-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #2d3440;
+}
+
+.form-new-question {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.form-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #2d3440;
+}
+
+.form-input {
+  padding: 0.65rem 0.85rem;
+  border: 1.5px solid #ebe7e0;
+  border-radius: 8px;
+  font-size: 0.92rem;
+  font-family: inherit;
+  color: #2d3440;
+  background: #fdf8f2;
+  outline: none;
+  transition: border-color 150ms ease;
+}
+
+.form-input::placeholder {
+  color: #b5b3ae;
+}
+
+.form-input:focus {
+  border-color: #e4a247;
+}
+
+/* ── Dialog footer buttons ── */
+.dialog-actions {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.btn-cancel {
+  padding: 0.6rem 1.4rem;
+  border: 1.5px solid #ebe7e0;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #2d3440;
+  font-size: 0.88rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 150ms ease;
+}
+
+.btn-cancel:hover {
+  background: #f5f0e8;
+}
+
+.btn-publish {
+  padding: 0.6rem 1.4rem;
+  border: none;
+  border-radius: 8px;
+  background: #e4a247;
+  color: #ffffff;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 150ms ease;
+}
+
+.btn-publish:hover {
+  background: #d4932f;
+}
+
+app-dialog:not([open]) {
+  display: none;
 }

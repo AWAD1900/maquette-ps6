@@ -1,0 +1,15 @@
+<template>
+  <link rel="stylesheet" href="components/quiz-question/quiz-question.css" />
+  <div class="quiz-question">
+    <slot name="image"></slot>
+    <div class="quiz-question-header">
+      <span class="status-label"><slot name="status"></slot></span>
+    </div>
+    <div class="question-content">
+      <h3 class="question-text"><slot name="question"></slot></h3>
+    </div>
+    <div class="answers-list">
+      <slot name="answers"></slot>
+    </div>
+  </div>
+</template>

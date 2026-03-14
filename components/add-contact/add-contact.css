@@ -1,0 +1,22 @@
+:host {
+  display: inline-block;
+}
+
+.add-contact-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.6rem 1.25rem;
+  background: #e4a247;
+  color: #ffffff;
+  font-size: 0.88rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 150ms ease;
+}
+
+.add-contact-btn:hover {
+  background: #d4932f;
+}
