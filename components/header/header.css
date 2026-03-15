@@ -28,7 +28,43 @@ header {
 .profil {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 1rem;
+}
+
+.btn-change-profile {
+  padding: 0.55rem 1rem;
+  border: 1.5px solid #ebe7e0;
+  border-radius: 8px;
+  background: transparent;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #81818e;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  line-height: 1;
+}
+
+.btn-change-profile:hover {
+  background: #f5f0e8;
+  border-color: #d4a574;
+  color: #d4a574;
+}
+
+.btn-icon {
+  font-size: 1rem;
+  display: inline-flex;
+  align-items: center;
+  font-weight: 600;
+}
+
+.btn-text {
+  font-weight: 500;
 }
 
 .profil-info {

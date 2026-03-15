@@ -4,6 +4,10 @@
     <slot name="image"></slot>
     <div class="quiz-question-header">
       <span class="status-label"><slot name="status"></slot></span>
+      <div class="question-actions">
+        <button class="btn-edit" title="Modifier la question">Éditer</button>
+        <button class="btn-delete" title="Supprimer la question">Supprimer</button>
+      </div>
     </div>
     <div class="question-content">
       <h3 class="question-text"><slot name="question"></slot></h3>

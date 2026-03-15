@@ -19,6 +19,21 @@ class QuizQuestion extends HTMLElement {
     if (template) {
       this.shadow.appendChild(template.content.cloneNode(true));
     }
+    // Hook actions inside the component and re-dispatch as composed events
+    const editBtn = this.shadow.querySelector('.btn-edit');
+    const deleteBtn = this.shadow.querySelector('.btn-delete');
+    if (editBtn) {
+      editBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        this.dispatchEvent(new CustomEvent('edit-question', { bubbles: true, composed: true, detail: { source: this } }));
+      });
+    }
+    if (deleteBtn) {
+      deleteBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        this.dispatchEvent(new CustomEvent('delete-question', { bubbles: true, composed: true, detail: { source: this } }));
+      });
+    }
   }
 }
 

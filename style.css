@@ -36,6 +36,13 @@ body {
   background: var(--color-bg);
 }
 
+/* When login page is shown, expand main to full size */
+body:has(main > page-login) {
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas: "main";
+}
+
 app-header {
   grid-area: header;
   position: sticky;

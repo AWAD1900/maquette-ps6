@@ -15,6 +15,46 @@
 .quiz-question-header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+}
+
+.question-actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.question-actions button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.95rem; /* légèrement augmenté */
+  font-weight: 500;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+}
+
+.question-actions button:hover {
+  background: rgba(0,0,0,0.04);
+}
+
+.question-actions .btn-edit {
+  color: #2d3440;
+}
+
+.question-actions .btn-delete {
+  color: #ffffff;
+  background-color: #d32f2f; /* rouge */
+  font-weight: 600;
+}
+
+.question-actions .btn-delete:hover {
+  background-color: #b71c1c; /* rouge plus foncé au survol */
 }
 
 .status-label {
