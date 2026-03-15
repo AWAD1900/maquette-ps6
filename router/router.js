@@ -113,6 +113,7 @@ router.register("/accueil/hier", "page-accueil");
 router.register("/accueil/demain", "page-accueil");
 router.register("/calendrier", "page-calendrier");
 router.register("/calendrier/hebdomadaire", "page-calendrier");
+router.register("/parametres", "page-parametres");
 router.register("/contacts", "page-contacts");
 router.register("/quiz", "page-quiz");
 router.register("/rdv-medical", "page-rdv-medical");
