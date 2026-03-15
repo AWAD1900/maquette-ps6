@@ -39,17 +39,23 @@ class AppRouter {
     this.mainEl.innerHTML = "";
 
     if (tagName) {
-      this.mainEl.appendChild(document.createElement(tagName));
+      const currentElement = this.mainEl.firstElementChild;
       
-      // Hide header and sidebar for login page
-      const header = document.querySelector("app-header");
-      const sidebar = document.querySelector("app-sidebar");
-      if (tagName === "page-login") {
-        if (header) header.style.display = "none";
-        if (sidebar) sidebar.style.display = "none";
-      } else {
-        if (header) header.style.display = "";
-        if (sidebar) sidebar.style.display = "";
+      // Only recreate the element if the component tag actually changed
+      if (!currentElement || currentElement.tagName.toLowerCase() !== tagName) {
+        this.mainEl.innerHTML = "";
+        this.mainEl.appendChild(document.createElement(tagName));
+        
+        // Hide header and sidebar for login and accueil pages
+        const header = document.querySelector("app-header");
+        const sidebar = document.querySelector("app-sidebar");
+        if (tagName === "page-login" || tagName === "page-accueil") {
+          if (header) header.style.display = "none";
+          if (sidebar) sidebar.style.display = "none";
+        } else {
+          if (header) header.style.display = "";
+          if (sidebar) sidebar.style.display = "";
+        }
       }
     } else {
       this.mainEl.innerHTML = `<h1>404 - Page non trouvée</h1><p>La page "${route}" n'existe pas.</p>`;
@@ -102,6 +108,9 @@ const router = new AppRouter();
 
 router.register("/", "page-login");
 router.register("/login", "page-login");
+router.register("/accueil", "page-accueil");
+router.register("/accueil/hier", "page-accueil");
+router.register("/accueil/demain", "page-accueil");
 router.register("/calendrier", "page-calendrier");
 router.register("/calendrier/hebdomadaire", "page-calendrier");
 router.register("/contacts", "page-contacts");

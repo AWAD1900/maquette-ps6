@@ -27,7 +27,7 @@ class PageLogin extends HTMLElement {
       if (profile === "aidant") {
         window.location.hash = "#/parametres";
       } else if (profile === "accueilli") {
-        window.location.hash = "#/calendrier";
+        window.location.hash = "#/accueil";
       }
     });
   }
