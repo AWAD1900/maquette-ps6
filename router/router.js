@@ -25,6 +25,17 @@ class AppRouter {
 
     if (!this.mainEl) return;
 
+    // Si la route est déjà rendue, on vérifie si c'est le calendrier pour forcer le mode
+    const currentView = this.mainEl.firstChild;
+    if (currentView && currentView.tagName.toLowerCase() === tagName) {
+      if (tagName === "page-calendrier") {
+        currentView._checkViewFromRoute?.();
+        currentView._renderCalendar?.();
+      }
+      this.updateActiveStates(route);
+      return;
+    }
+
     this.mainEl.innerHTML = "";
 
     if (tagName) {
@@ -92,11 +103,9 @@ const router = new AppRouter();
 router.register("/", "page-login");
 router.register("/login", "page-login");
 router.register("/calendrier", "page-calendrier");
-router.register("/calendrier/mensuelle", "page-calendrier");
-router.register("/calendrier/hebdomadaire", "page-hebdomadaire");
+router.register("/calendrier/hebdomadaire", "page-calendrier");
 router.register("/contacts", "page-contacts");
 router.register("/quiz", "page-quiz");
-router.register("/parametres", "page-parametres");
 router.register("/rdv-medical", "page-rdv-medical");
 router.register("/activite", "page-activite");
 router.register("/medicament", "page-medicament");

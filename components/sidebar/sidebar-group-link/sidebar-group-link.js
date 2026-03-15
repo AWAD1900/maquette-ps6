@@ -54,6 +54,12 @@ class SideBarGroupLink extends HTMLElement {
     iconImageEl.src = iconSrc;
     labelEl.textContent = text;
     anchorEl.href = link;
+    
+    // Au lieu de preventDefault, on laisse le comportement naturel 
+    // ou on force le hashchange pour que le router réagisse
+    anchorEl.onclick = () => {
+      window.location.hash = link;
+    };
   }
 }
 
