@@ -251,16 +251,25 @@ class PageAccueil extends HTMLElement {
 
     async connectedCallback() {
         const timestamp = new Date().getTime();
-        const [htmlResponse, cssResponse] = await Promise.all([
+        const [htmlResponse, commonResponse, dayResponse, weekResponse, monthResponse] = await Promise.all([
             fetch(`/pages/page-accueil/page-accueil.html?v=${timestamp}`),
-            fetch(`/pages/page-accueil/page-accueil.css?v=${timestamp}`)
+            fetch(`/pages/page-accueil/common/page-accueil-common.css?v=${timestamp}`),
+            fetch(`/pages/page-accueil/day/page-accueil-day.css?v=${timestamp}`),
+            fetch(`/pages/page-accueil/week/page-accueil-week.css?v=${timestamp}`),
+            fetch(`/pages/page-accueil/month/page-accueil-month.css?v=${timestamp}`)
         ]);
 
         const html = await htmlResponse.text();
-        const css = await cssResponse.text();
+        const commonCss = await commonResponse.text();
+        const dayCss = await dayResponse.text();
+        const weekCss = await weekResponse.text();
+        const monthCss = await monthResponse.text();
 
         this.shadowRoot.innerHTML = `
-            <style>${css}</style>
+            <style>${commonCss}</style>
+            <style>${dayCss}</style>
+            <style>${weekCss}</style>
+            <style>${monthCss}</style>
             ${html}
         `;
 
