@@ -1,0 +1,40 @@
+<template>
+  <link rel="stylesheet" href="dialog-card/dialog-card.css" />
+  <div class="overlay">
+    <div class="dialog-card">
+      <h2 class="dialog-title">
+        <span class="icon">🍀</span> Nouvelle question quiz
+      </h2>
+
+      <div class="form-group">
+        <label class="form-label">QUESTION</label>
+        <input type="text" class="form-input" placeholder="Ex: Comment s'appelle votre petite-fille ?" />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label correct-label">✓ BONNE RÉPONSE</label>
+        <input type="text" class="form-input correct-input" placeholder="La réponse correcte" />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">MAUVAISE RÉPONSE 1</label>
+        <input type="text" class="form-input" placeholder="Choix incorrect" />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">MAUVAISE RÉPONSE 2</label>
+        <input type="text" class="form-input" placeholder="Choix incorrect" />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">AIDE (OPTIONNEL)</label>
+        <input type="text" class="form-input" placeholder="Ex: Indice si Roger a du mal..." />
+      </div>
+
+      <div class="dialog-actions">
+        <button class="btn btn-cancel">Annuler</button>
+        <button class="btn btn-publish">✓ Publier la question</button>
+      </div>
+    </div>
+  </div>
+</template>

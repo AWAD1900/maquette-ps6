@@ -1,0 +1,62 @@
+<template>
+  <side-bar>
+    <h2 slot="sidebar-header"></h2>
+    <div slot="sidebar-content">
+      <side-bar-group>
+        <h3 slot="sidebar-group-title">Calendrier</h3>
+
+        <sidebar-group-link
+          icon-src="https://www.svgrepo.com/show/532084/calendar.svg"
+          text="Vue mensuelle"
+          link="#"
+          active
+        ></sidebar-group-link>
+
+        <sidebar-group-link
+          icon-src="https://www.svgrepo.com/show/532084/calendar.svg"
+          text="Vue hebdomadaire"
+          link="#"
+        ></sidebar-group-link>
+      </side-bar-group>
+
+      <side-bar-group>
+        <h3 slot="sidebar-group-title">Gestion</h3>
+        <sidebar-group-link
+          icon-src="https://www.svgrepo.com/show/532363/users.svg"
+          text="Contacts"
+          link="#"
+        ></sidebar-group-link>
+        <sidebar-group-link
+          icon-src="https://www.svgrepo.com/show/532879/puzzle.svg"
+          text="Quiz du jour"
+          link="#"
+        ></sidebar-group-link>
+      </side-bar-group>
+
+      <side-bar-group>
+        <h3 slot="sidebar-group-title">Evenements</h3>
+        <sidebar-group-link
+          icon-src="https://www.svgrepo.com/show/532385/bed.svg"
+          text="Rdv medical"
+          link="#"
+        ></sidebar-group-link>
+        <sidebar-group-link
+          icon-src="https://www.svgrepo.com/show/533244/palette.svg"
+          text="Activite"
+          link="#"
+        ></sidebar-group-link>
+        <sidebar-group-link
+          icon-src="https://www.svgrepo.com/show/530663/pills.svg"
+          text="Medicament"
+          link="#"
+        ></sidebar-group-link>
+        <sidebar-group-link
+          icon-src="https://www.svgrepo.com/show/532346/people.svg"
+          text="Famille"
+          link="#"
+        ></sidebar-group-link>
+      </side-bar-group>
+    </div>
+    <h2 slot="sidebar-footer"></h2>
+  </side-bar>
+</template>

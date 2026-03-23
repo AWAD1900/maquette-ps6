@@ -1,0 +1,29 @@
+header {
+  display: flex;
+  justify-content: center;
+  /* padding: 0.2rem; */
+  border-bottom: 1.5px solid rgba(128, 128, 128, 0.588);
+}
+
+.header-content {
+  display: flex;
+  width: 85%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-menu {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+}
+
+.profil {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.profil-logo {
+  width: 50px;
+}
