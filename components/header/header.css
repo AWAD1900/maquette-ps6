@@ -1,0 +1,105 @@
+header {
+  display: flex;
+  justify-content: center;
+  border-bottom: 1.5px solid #ebe7e0;
+  background: #ffffff;
+}
+
+.header-content {
+  display: flex;
+  width: 90%;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+}
+
+.logo-text {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #2d3440;
+}
+
+.nav-menu {
+  display: flex;
+  gap: 0.5rem;
+  list-style: none;
+}
+
+.profil {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.btn-change-profile {
+  padding: 0.55rem 1rem;
+  border: 1.5px solid #ebe7e0;
+  border-radius: 8px;
+  background: transparent;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #81818e;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  line-height: 1;
+}
+
+.btn-change-profile:hover {
+  background: #f5f0e8;
+  border-color: #d4a574;
+  color: #d4a574;
+}
+
+.btn-icon {
+  font-size: 1rem;
+  display: inline-flex;
+  align-items: center;
+  font-weight: 600;
+}
+
+.btn-text {
+  font-weight: 500;
+}
+
+.profil-info {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.profil-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.profil-name {
+  font-size: 0.92rem;
+  color: #2d3440;
+  white-space: nowrap;
+}
+
+.profil-switch {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 1rem;
+  border: 1.5px solid #ebe7e0;
+  border-radius: 8px;
+  background: transparent;
+  font-size: 0.88rem;
+  color: #2d3440;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 150ms ease;
+}
+
+.profil-switch:hover {
+  background: #f5f0e8;
+}

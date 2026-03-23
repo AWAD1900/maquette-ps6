@@ -1,0 +1,23 @@
+:host {
+  display: block;
+  min-height: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.page-hebdomadaire {
+  padding: 1.5rem;
+}
+
+.page-hebdomadaire h1 {
+  font-size: 1.6rem;
+  color: #2d3440;
+  margin-bottom: 0.5rem;
+}
+
+.page-hebdomadaire p {
+  color: #81818e;
+  font-size: 1rem;
+}

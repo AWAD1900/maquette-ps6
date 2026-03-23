@@ -1,22 +1,51 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
-    <title>Document</title>
+    <title>Mémoire Vive</title>
   </head>
   <body>
     <app-header></app-header>
     <app-sidebar></app-sidebar>
     <main></main>
-    <dialog-card></dialog-card>
-    <script src="dialog-card/dialog-card.js" defer></script>
-    <script src="header/header.js" defer></script>
-    <script src="app-sidebar/app-sidebar.js" defer></script>
-    <script src="sidebar/sidebar.js" defer></script>
-    <script src="sidebar/sidebar-group/sidebar-group.js" defer></script>
-    <script src="sidebar-group-link/sidebar-group-link.js" defer></script>
-    <script src="nav-link/nav-link.js" defer></script>
+
+    <script src="components/card/card.js" defer></script>
+    <script src="components/dialog/dialog.js" defer></script>
+    <script src="components/contact/contact.js" defer></script>
+    <script src="components/add-contact/add-contact.js" defer></script>
+    <script src="components/header/header.js" defer></script>
+    <script src="components/app-sidebar/app-sidebar.js" defer></script>
+    <script src="components/header/nav-link/nav-link.js" defer></script>
+    <script src="components/sidebar/sidebar-group/sidebar-group.js" defer ></script>
+    <script src="components/sidebar/sidebar-group-link/sidebar-group-link.js" defer></script>
+    <script src="components/sidebar/sidebar.js" defer></script>
+    <script src="components/quiz-answer/quiz-answer.js" defer></script>
+    <script src="components/quiz-question/quiz-question.js" defer></script>
+    <script src="components/toggle-switch/toggle-switch.js" defer></script>
+    <script src="components/setting-item/setting-item.js" defer></script>
+    <script src="components/card-profile/card-profile.js" defer></script>
+
+    <!-- Modules du calendrier -->
+    <script src="pages/page-calendrier/calendar-utils.js" defer></script>
+    <script src="pages/page-calendrier/calendar-events.js" defer></script>
+    <script src="pages/page-calendrier/calendar-renderer.js" defer></script>
+    <script src="pages/page-calendrier/calendar-dialog.js" defer></script>
+    <script src="pages/page-calendrier/page-calendrier.js" defer></script>
+
+    <script src="pages/page-hebdomadaire/page-hebdomadaire.js" defer></script>
+    <script src="pages/page-contacts/page-contacts.js" defer></script>
+    <script src="pages/page-quiz/page-quiz.js" defer></script>
+    <script src="pages/page-parametres/page-parametres.js" defer></script>
+    <script src="pages/page-rdv-medical/page-rdv-medical.js" defer></script>
+    <script src="components/header-accueil/header-accueil.js" defer></script>
+    <script src="pages/page-accueil/page-accueil.js" defer></script>
+    <script src="pages/page-activite/page-activite.js" defer></script>
+    <script src="pages/page-medicament/page-medicament.js" defer></script>
+    <script src="pages/page-famille/page-famille.js" defer></script>
+    <script src="pages/page-login/page-login.js" defer></script>
+
+    <script src="router/router.js" defer></script>
   </body>
 </html>

@@ -1,0 +1,38 @@
+<template>
+  <link rel="stylesheet" href="pages/page-login/page-login.css" />
+  <div class="page-login">
+    <div class="login-container">
+      <!-- Header -->
+      <div class="login-header">
+        <div class="app-logo">🍃</div>
+        <h1 class="app-title">Mon aidant</h1>
+        <p class="app-subtitle">& moi</p>
+        <p class="app-description">
+          Un espace doux et bienveillant pour accompagner<br />
+          au quotidien les personnes atteintes d'Alzheimer.
+        </p>
+      </div>
+
+      <!-- Profile Cards -->
+      <div class="profile-cards">
+        <card-profile data-profile="aidant">
+          <span slot="icon">👨‍💼</span>
+          <span slot="title">Profil Aidant</span>
+          <span slot="description">
+            Famille, soignants & personnels du centre de jour
+          </span>
+          <span slot="button-text">Gestion & édition</span>
+        </card-profile>
+
+        <card-profile data-profile="accueilli">
+          <span slot="icon">🌸</span>
+          <span slot="title">Profil Accueilli</span>
+          <span slot="description">
+            Interface adaptée pour la personne accompagnée
+          </span>
+          <span slot="button-text">Vue simplifiée</span>
+        </card-profile>
+      </div>
+    </div>
+  </div>
+</template>

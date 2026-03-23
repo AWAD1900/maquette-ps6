@@ -1,0 +1,62 @@
+<template>
+  <side-bar>
+    <div slot="sidebar-header">
+      <img src="" alt="">
+    </div>
+    <div slot="sidebar-content">
+      <side-bar-group>
+        <h3 slot="sidebar-group-title">Calendrier</h3>
+        <sidebar-group-link
+          icon-src="https://cdn-icons-png.flaticon.com/128/2886/2886665.png"
+          text="Vue mensuelle"
+          link="#/calendrier"
+          active
+        ></sidebar-group-link>
+        <sidebar-group-link
+          icon-src="https://cdn-icons-png.flaticon.com/128/2886/2886665.png"
+          text="Vue hebdomadaire"
+          link="#/calendrier/hebdomadaire"
+        ></sidebar-group-link>
+      </side-bar-group>
+
+      <side-bar-group>
+        <h3 slot="sidebar-group-title">Gestion</h3>
+        <sidebar-group-link
+          icon-src="https://cdn-icons-png.flaticon.com/128/46/46646.png"
+          text="Contacts"
+          link="#/contacts"
+        ></sidebar-group-link>
+        <sidebar-group-link
+          icon-src="https://cdn-icons-png.flaticon.com/128/3261/3261319.png"
+          text="Quiz du jour"
+          link="#/quiz"
+        ></sidebar-group-link>
+      </side-bar-group>
+
+      <!-- <side-bar-group>
+        <h3 slot="sidebar-group-title">Événements</h3>
+        <sidebar-group-link
+          icon-src="https://www.svgrepo.com/show/532385/bed.svg"
+          text="Rdv médical"
+          link="#/rdv-medical"
+        ></sidebar-group-link>
+        <sidebar-group-link
+          icon-src="https://www.svgrepo.com/show/533244/palette.svg"
+          text="Activité"
+          link="#/activite"
+        ></sidebar-group-link>
+        <sidebar-group-link
+          icon-src="https://www.svgrepo.com/show/530663/pills.svg"
+          text="Médicament"
+          link="#/medicament"
+        ></sidebar-group-link>
+        <sidebar-group-link
+          icon-src="https://www.svgrepo.com/show/532346/people.svg"
+          text="Famille"
+          link="#/famille"
+        ></sidebar-group-link>
+      </side-bar-group> -->
+    </div>
+    <div slot="sidebar-footer"></div>
+  </side-bar>
+</template>

@@ -1,0 +1,14 @@
+.page-famille {
+  padding: 1.5rem;
+}
+
+.page-famille h1 {
+  font-size: 1.6rem;
+  color: #2d3440;
+  margin-bottom: 0.5rem;
+}
+
+.page-famille p {
+  color: #81818e;
+  font-size: 1rem;
+}

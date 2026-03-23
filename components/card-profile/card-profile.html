@@ -1,0 +1,11 @@
+<template>
+  <link rel="stylesheet" href="components/card-profile/card-profile.css" />
+  <div class="card-profile">
+    <div class="card-icon">
+      <slot name="icon"></slot>
+    </div>
+    <h2 class="card-title"><slot name="title"></slot></h2>
+    <p class="card-description"><slot name="description"></slot></p>
+    <button class="card-button"><slot name="button-text">Accéder</slot></button>
+  </div>
+</template>

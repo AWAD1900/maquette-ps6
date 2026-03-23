@@ -1,0 +1,66 @@
+:host {
+  display: inline-block;
+}
+
+.nav-menu-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1.1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 160ms ease;
+  list-style: none;
+}
+
+.nav-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.nav-text {
+  text-decoration: none;
+  color: #2d3440;
+  font-size: 0.95rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.nav-text:visited {
+  color: #2d3440;
+}
+
+.notification-dot {
+  display: none;
+}
+
+.nav-menu-item:hover {
+  background-color: #f5f0e8;
+}
+
+/* Active state */
+:host([active]) .nav-menu-item {
+  background-color: #e4a247;
+}
+
+:host([active]) .nav-text,
+:host([active]) .nav-text:visited {
+  color: #ffffff;
+}
+
+:host([active]) .nav-icon {
+  filter: brightness(0) invert(1);
+}
+
+/* Notification dot */
+:host([notification]) .notification-dot {
+  display: block;
+  position: absolute;
+  top: 2px;
+  right: 8px;
+  width: 8px;
+  height: 8px;
+  background: #e05c5c;
+  border-radius: 50%;
+}

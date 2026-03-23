@@ -1,0 +1,166 @@
+/* Common Styles - Host, Layout, Navigation */
+
+:host {
+    display: block;
+    width: 100%;
+    min-height: 100vh;
+    background-color: #fff9ed;
+}
+
+.page-accueil {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* View Selector Buttons */
+.view-selector {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1rem 0;
+    margin-top: 0.5rem;
+}
+
+.view-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.2rem;
+    border-radius: 15px;
+    background-color: #fff;
+    color: #4a4a4a;
+    font-weight: 600;
+    font-size: 0.95rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    border: 1.5px solid #dcdcdc;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+}
+
+.view-btn:hover {
+    background-color: #f5f5f5;
+    border-color: #b0b0b0;
+}
+
+.view-btn.active {
+    background-color: #5db0ff;
+    color: white;
+    border-color: #4a9fd9;
+    box-shadow: 0 4px 8px rgba(93, 176, 255, 0.2);
+}
+
+/* Day Navigation */
+.day-navigation {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 1.5rem 0;
+    margin-top: 1rem;
+}
+
+.view-btn.active ~ #day-nav {
+    display: flex;
+}
+
+.nav-btn {
+    text-decoration: none;
+    padding: 0.6rem 1.5rem;
+    border-radius: 20px;
+    background-color: #fff;
+    color: #4a4a4a;
+    font-weight: 500;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    border: 1px solid #eee;
+    transition: all 0.2s;
+    font-family: inherit;
+    font-size: 1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.nav-btn span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.nav-btn svg,
+.nav-btn img {
+    width: 16px;
+    height: 16px;
+    display: block;
+    flex-shrink: 0;
+}
+
+.nav-btn:hover {
+    background-color: #f9f9f9;
+}
+
+.nav-btn.active {
+    font-weight: 700;
+    color: #333;
+    border: 2px solid #5db0ff;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
+}
+
+/* Calendar Navigation (prev/next buttons) */
+.calendar-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.5rem 0;
+    margin: 1rem 0;
+}
+
+.nav-prev, .nav-next {
+    background-color: white;
+    border: 1px solid #dcdcdc;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: #4a4a4a;
+    font-size: 1.2rem;
+    padding: 0;
+    font-family: inherit;
+}
+
+.nav-prev:hover, .nav-next:hover {
+    background-color: #f5f5f5;
+    border-color: #888;
+    transform: scale(1.1);
+}
+
+.nav-label {
+    font-weight: 700;
+    color: #333;
+    font-size: 1.1rem;
+    min-width: 220px;
+    text-align: center;
+}
+
+/* Content Container */
+.content {
+    flex: 1;
+    padding: 0 1rem 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}

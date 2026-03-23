@@ -1,0 +1,72 @@
+:host {
+  display: block;
+}
+
+.contact-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  border-radius: 12px;
+  background: transparent;
+  transition: background 150ms ease;
+}
+
+.contact-card:hover {
+  background: #f5f0e8;
+}
+
+.contact-avatar {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  border-radius: 50%;
+  background: #fbe8c8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #e4a247;
+  overflow: hidden;
+}
+
+.avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.contact-name {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #2d3440;
+}
+
+.contact-role {
+  font-size: 0.8rem;
+  color: #81818e;
+}
+
+.contact-phone {
+  font-size: 0.82rem;
+  color: #e4a247;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.phone-link {
+  color: #e4a247;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.phone-link:hover {
+  text-decoration: underline;
+}

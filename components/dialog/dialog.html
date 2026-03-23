@@ -1,0 +1,19 @@
+<template>
+  <link rel="stylesheet" href="components/dialog/dialog.css" />
+  <link rel="stylesheet" href="components/card/card.css" />
+  <div class="dialog-overlay" part="overlay">
+    <div class="dialog-container">
+      <div class="card">
+        <div class="card-header">
+          <slot name="dialog-header"></slot>
+        </div>
+        <div class="card-body">
+          <slot name="dialog-body"></slot>
+        </div>
+        <div class="card-footer">
+          <slot name="dialog-footer"></slot>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

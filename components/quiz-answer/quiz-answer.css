@@ -1,0 +1,33 @@
+:host {
+  display: block;
+}
+
+.quiz-answer {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.7rem 1rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  color: #2d3440;
+  background: #ffffff;
+  transition: background 150ms ease;
+}
+
+:host([correct]) .quiz-answer {
+  background: #dff3e3;
+}
+
+.indicator {
+  width: 14px;
+  height: 14px;
+  min-width: 14px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  box-sizing: border-box;
+}
+
+:host([correct]) .indicator {
+  border: none;
+  background: #5cb85c;
+}

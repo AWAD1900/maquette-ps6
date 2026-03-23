@@ -1,0 +1,40 @@
+:host {
+	--group-title: #81818e;
+	--group-title-size: 0.87rem;
+	--group-gap: 0.35rem;
+	--group-section-space: 1rem;
+
+	display: block;
+	margin-bottom: var(--group-section-space);
+}
+
+.sidebar-group {
+	display: block;
+}
+
+.sidebar-group-header {
+	padding: 0;
+	margin-bottom: 0.45rem;
+}
+
+::slotted([slot="sidebar-group-title"]) {
+	margin: 0;
+	display: block;
+	padding: 0 0.35rem;
+	color: var(--group-title);
+	font-size: var(--group-title-size);
+	font-weight: 700;
+	letter-spacing: 0.11em;
+	text-transform: uppercase;
+}
+
+.sidebar-group-content {
+	padding: 0;
+	display: grid;
+	gap: var(--group-gap);
+}
+
+::slotted(sidebar-group-link),
+::slotted(nav-link) {
+	display: block;
+}
