@@ -47,6 +47,16 @@
   color: #2d3440;
 }
 
+.question-actions .btn-schedule {
+  color: #ffffff;
+  background-color: #2d7a8c;
+  font-weight: 600;
+}
+
+.question-actions .btn-schedule:hover {
+  background-color: #205968;
+}
+
 .question-actions .btn-delete {
   color: #ffffff;
   background-color: #d32f2f; /* rouge */

@@ -79,5 +79,22 @@
         <button type="submit" class="btn-publish" id="btn-publish">✓ Publier la question</button>
       </div>
     </app-dialog>
+
+    <!-- Dialog: Programmer un quiz -->
+    <app-dialog id="dialog-schedule-question">
+      <div slot="dialog-header" class="dialog-title">
+        Programmer le lancement
+      </div>
+      <form slot="dialog-body" class="form-schedule-question" id="form-schedule-question">
+        <div class="form-group">
+          <label class="form-label" for="input-launch-datetime">Date et heure de lancement</label>
+          <input type="datetime-local" class="form-input" id="input-launch-datetime" required />
+        </div>
+      </form>
+      <div slot="dialog-footer" class="dialog-actions">
+        <button type="button" class="btn-cancel" id="btn-cancel-schedule">Annuler</button>
+        <button type="submit" class="btn-publish" id="btn-save-schedule">Enregistrer</button>
+      </div>
+    </app-dialog>
   </div>
 </template>

@@ -2,24 +2,32 @@ class PageCalendrier extends HTMLElement {
   constructor() {
     super();
     this.shadow = this.attachShadow({ mode: "open" });
-    
+
     // État du calendrier
     this.currentDate = CalendarUtils.getToday();
     this.viewMode = "month"; // month, week, day
     this.selectedDate = CalendarUtils.getToday();
-    
+
     // Types d'événements
     this.eventTypes = [
       { name: "Rendez-vous médical", color: "#E74C3C" },
       { name: "Médicament", color: "#3498DB" },
       { name: "Activité", color: "#27AE60" },
-      { name: "Autre", color: "#F39C12" }
+      { name: "Autre", color: "#F39C12" },
     ];
-    
+
     // Modules
     this.calendarEvents = new CalendarEvents();
-    this.renderer = new CalendarRenderer(this.shadow, this.calendarEvents, this.eventTypes);
-    this.dialog = new CalendarDialog(this.shadow, this.calendarEvents, this.eventTypes);
+    this.renderer = new CalendarRenderer(
+      this.shadow,
+      this.calendarEvents,
+      this.eventTypes,
+    );
+    this.dialog = new CalendarDialog(
+      this.shadow,
+      this.calendarEvents,
+      this.eventTypes,
+    );
   }
 
   async connectedCallback() {
@@ -46,6 +54,8 @@ class PageCalendrier extends HTMLElement {
     const hash = window.location.hash;
     if (hash === "#/calendrier/hebdomadaire") {
       this.viewMode = "week";
+    } else if (hash === "#/calendrier/jour") {
+      this.viewMode = "day";
     } else if (hash === "#/calendrier") {
       this.viewMode = "month";
     }
@@ -60,7 +70,8 @@ class PageCalendrier extends HTMLElement {
     const nextBtn = this.shadow.querySelector(".btn-next");
     const todayBtn = this.shadow.querySelector(".btn-today");
 
-    if (btnMonth) btnMonth.addEventListener("click", () => this._setView("month"));
+    if (btnMonth)
+      btnMonth.addEventListener("click", () => this._setView("month"));
     if (btnWeek) btnWeek.addEventListener("click", () => this._setView("week"));
     if (btnDay) btnDay.addEventListener("click", () => this._setView("day"));
     if (prevBtn) prevBtn.addEventListener("click", () => this._prevPeriod());
@@ -73,6 +84,8 @@ class PageCalendrier extends HTMLElement {
     // Mettre à jour le hash pour activer le lien correspondant dans la sidebar
     if (mode === "week") {
       history.pushState(null, null, "#/calendrier/hebdomadaire");
+    } else if (mode === "day") {
+      history.pushState(null, null, "#/calendrier/jour");
     } else if (mode === "month") {
       history.pushState(null, null, "#/calendrier");
     }
@@ -85,8 +98,12 @@ class PageCalendrier extends HTMLElement {
     const btnWeek = this.shadow.querySelector("[data-view='week']");
     const btnDay = this.shadow.querySelector("[data-view='day']");
 
-    [btnMonth, btnWeek, btnDay].forEach(btn => btn?.removeAttribute("active"));
-    const activeBtn = this.shadow.querySelector(`[data-view='${this.viewMode}']`);
+    [btnMonth, btnWeek, btnDay].forEach((btn) =>
+      btn?.removeAttribute("active"),
+    );
+    const activeBtn = this.shadow.querySelector(
+      `[data-view='${this.viewMode}']`,
+    );
     if (activeBtn) activeBtn.setAttribute("active", "");
   }
 
@@ -133,21 +150,27 @@ class PageCalendrier extends HTMLElement {
           const dayEvents = this.calendarEvents.getEventsForDate(dateStr);
           const eventIdx = dayEvents.indexOf(event);
           this.dialog.show(date, eventIdx, null, () => this._renderCalendar());
-        }
+        },
       );
     } else if (this.viewMode === "day") {
       const dateStr = CalendarUtils.dateToString(this.currentDate);
       const dayEvents = this.calendarEvents.getEventsForDate(dateStr);
-      
+
       this.renderer.renderDay(
         this.currentDate,
         dayEvents,
-        () => this.dialog.show(this.currentDate, null, null, () => this._renderCalendar()),
-        (idx) => this.dialog.show(this.currentDate, idx, null, () => this._renderCalendar()),
+        () =>
+          this.dialog.show(this.currentDate, null, null, () =>
+            this._renderCalendar(),
+          ),
+        (idx) =>
+          this.dialog.show(this.currentDate, idx, null, () =>
+            this._renderCalendar(),
+          ),
         (idx) => {
           this.calendarEvents.deleteEvent(dateStr, idx);
           this._renderCalendar();
-        }
+        },
       );
     }
   }

@@ -70,6 +70,12 @@
   gap: 1rem;
 }
 
+.form-schedule-question {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
 .form-group {
   display: flex;
   flex-direction: column;

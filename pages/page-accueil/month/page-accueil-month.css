@@ -3,38 +3,41 @@
 .month-view {
     background: white;
     border-radius: 15px;
-    padding: 2rem;
+    padding: 1rem;
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
 }
 
 .month-title {
     text-align: center;
-    font-size: 1.5rem;
-    margin: 0 0 1.5rem 0;
+    font-size: 1.2rem;
+    margin: 0 0 0.8rem 0;
     color: #333;
 }
 
 .month-grid {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.35rem;
 }
 
 /* Month Weekday Headers */
 .month-weekdays {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 0.5rem;
-    margin-bottom: 1rem;
+    gap: 0.35rem;
+    margin-bottom: 0.35rem;
 }
 
 .month-weekday {
     text-align: center;
     font-weight: 700;
     color: #5db0ff;
-    padding: 1rem 0.5rem;
-    font-size: 1.3rem;
+    padding: 0.45rem 0.2rem;
+    font-size: 0.78rem;
     background: #f0f7ff;
     border-radius: 10px;
     letter-spacing: 0.5px;
@@ -45,20 +48,24 @@
 .month-days {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 0.5rem;
+    gap: 0.35rem;
 }
 
 /* Month Day Cell */
 .month-day {
-    aspect-ratio: 1;
+    aspect-ratio: auto;
+    min-height: 62px;
+    max-height: 62px;
     background: #f9f9f9;
     border: 1px solid #eee;
     border-radius: 10px;
-    padding: 0.6rem;
+    padding: 0.35rem;
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
+    gap: 0.2rem;
     transition: all 0.2s;
+    min-width: 0;
+    overflow: hidden;
 }
 
 .month-day.empty {
@@ -83,17 +90,39 @@
 .month-day-number {
     font-weight: 700;
     color: #333;
-    font-size: 0.9rem;
+    font-size: 0.78rem;
 }
 
 /* Month Day Events */
 .month-day-events {
     display: flex;
-    gap: 0.3rem;
+    gap: 0.2rem;
     flex-wrap: wrap;
+    overflow: hidden;
 }
 
 .month-event {
-    font-size: 1.1rem;
+    font-size: 0.85rem;
     opacity: 0.8;
+}
+
+@media (max-width: 1200px) {
+    .month-view {
+        padding: 0.8rem;
+    }
+
+    .month-weekday {
+        font-size: 0.72rem;
+        padding: 0.4rem 0.1rem;
+    }
+
+    .month-day {
+        min-height: 52px;
+        max-height: 52px;
+        padding: 0.28rem;
+    }
+
+    .month-event {
+        font-size: 0.78rem;
+    }
 }

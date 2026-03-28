@@ -1,7 +1,61 @@
 <template>
   <link rel="stylesheet" href="pages/page-activite/page-activite.css" />
   <div class="page-activite">
-    <h1>Activités</h1>
-    <p>Gérez les activités</p>
+    <section class="stats-header">
+      <h1>Statistiques d'activite</h1>
+      <p>Suivi des taux de completion des activites et performances des quiz.</p>
+    </section>
+
+    <section class="kpi-grid">
+      <article class="kpi-card kpi-highlight">
+        <span class="kpi-label">Taux global de completion</span>
+        <strong class="kpi-value" id="kpi-activity-rate">0%</strong>
+        <small class="kpi-trend" id="kpi-activity-trend">+0% cette semaine</small>
+      </article>
+      <article class="kpi-card">
+        <span class="kpi-label">Activites completees</span>
+        <strong class="kpi-value" id="kpi-activity-done">0 / 0</strong>
+        <small class="kpi-note">Objectif hebdomadaire: 75%</small>
+      </article>
+      <article class="kpi-card">
+        <span class="kpi-label">Taux de reussite quiz</span>
+        <strong class="kpi-value" id="kpi-quiz-rate">0%</strong>
+        <small class="kpi-note" id="kpi-quiz-count">0 questions repondues</small>
+      </article>
+      <article class="kpi-card">
+        <span class="kpi-label">Temps moyen par quiz</span>
+        <strong class="kpi-value" id="kpi-quiz-time">0s</strong>
+        <small class="kpi-note">Cible: moins de 25s</small>
+      </article>
+    </section>
+
+    <section class="panel-grid">
+      <article class="panel">
+        <div class="panel-head">
+          <h2>Completion des activites</h2>
+          <span id="activity-overall-rate">0%</span>
+        </div>
+        <div id="activity-list" class="activity-list"></div>
+      </article>
+
+      <article class="panel">
+        <div class="panel-head">
+          <h2>Statistiques quiz</h2>
+          <span id="quiz-score-tag">0% correct</span>
+        </div>
+
+        <div class="quiz-ring-wrap">
+          <div class="quiz-ring" id="quiz-ring" role="img" aria-label="Taux de reussite quiz">
+            <span id="quiz-ring-value">0%</span>
+          </div>
+          <div class="quiz-ring-meta">
+            <p><strong id="quiz-correct-count">0</strong> bonnes reponses</p>
+            <p><strong id="quiz-wrong-count">0</strong> erreurs</p>
+          </div>
+        </div>
+
+        <div class="quiz-breakdown" id="quiz-breakdown"></div>
+      </article>
+    </section>
   </div>
 </template>

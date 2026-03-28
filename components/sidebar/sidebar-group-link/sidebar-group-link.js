@@ -10,7 +10,9 @@ class SideBarGroupLink extends HTMLElement {
       return;
     }
 
-    const response = await fetch("components/sidebar/sidebar-group-link/sidebar-group-link.html");
+    const response = await fetch(
+      "components/sidebar/sidebar-group-link/sidebar-group-link.html",
+    );
     const htmlContent = await response.text();
 
     const template = new DOMParser()
@@ -54,11 +56,16 @@ class SideBarGroupLink extends HTMLElement {
     iconImageEl.src = iconSrc;
     labelEl.textContent = text;
     anchorEl.href = link;
-    
-    // Au lieu de preventDefault, on laisse le comportement naturel 
-    // ou on force le hashchange pour que le router réagisse
-    anchorEl.onclick = () => {
-      window.location.hash = link;
+
+    anchorEl.onclick = (event) => {
+      event.preventDefault();
+
+      // Keep SPA navigation predictable and avoid full-page navigation behavior.
+      if (window.location.hash !== link) {
+        window.location.hash = link;
+      } else {
+        window.appRouter?.render?.();
+      }
     };
   }
 }
