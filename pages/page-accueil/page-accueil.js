@@ -3,34 +3,285 @@ class DayView {
   constructor(eventsData, currentDay = "aujourd-hui") {
     this.eventsData = eventsData;
     this.currentDay = currentDay;
+    this.startHour = 7;
+    this.endHour = 21;
+    this.pxPerHour = 64;
+    this.totalPx = (this.endHour - this.startHour) * this.pxPerHour;
   }
 
   generateHTML() {
-    const dayData = this.eventsData[this.currentDay];
+    const dayData =
+      this.eventsData[this.currentDay] || this.eventsData["aujourd-hui"];
+    const events = this.normalizeEvents(dayData.events || []);
+    const timeline = this.buildTimeline(events);
+    const nextEvent = this.getNextEvent(events);
 
-    const eventsHTML = dayData.events
-      .map(
-        (event) => `
-            <div class="event-card event-${event.type}">
-                <div class="event-icon">${event.icon}</div>
-                <div class="event-time">${event.time}</div>
-                <div class="event-details">
-                    <h4>${event.title}</h4>
-                    <p>${event.desc}</p>
-                </div>
+    return `
+      <div class="cal-root">
+        <div class="cal-header">
+          <div class="cal-date-block">
+            <div class="cal-weekday">${this.escapeHTML(this.getWeekdayLabel())}</div>
+            <div class="cal-dayname">${this.escapeHTML(this.getDayNameLabel(dayData))}</div>
+            <div class="cal-fulldate">${this.escapeHTML(this.getSubDateLabel())}</div>
+          </div>
+        </div>
+
+        <div class="greeting-band">
+          <span class="greeting-emoji">🌸</span>
+          <span class="greeting-text">${this.escapeHTML(this.getGreeting())}</span>
+        </div>
+
+        <div class="legend">
+          <div class="legend-item"><span class="legend-dot" style="background:#7bbde0"></span>Médecin</div>
+          <div class="legend-item"><span class="legend-dot" style="background:#f0a05a"></span>Repas</div>
+          <div class="legend-item"><span class="legend-dot" style="background:#72c28a"></span>Activité</div>
+          <div class="legend-item"><span class="legend-dot" style="background:#e88faa"></span>Visite</div>
+          <div class="legend-item"><span class="legend-dot" style="background:#e0c840"></span>Médicaments</div>
+        </div>
+
+        <div class="section-label">Frise du jour</div>
+        <div class="timeline-wrapper">
+          <div class="timeline-inner">
+            <div class="tl-hours-row" style="width:${this.totalPx}px;">
+              ${timeline.hoursHTML}
             </div>
-        `,
+            <div class="tl-events-zone" style="width:${this.totalPx}px; height:${timeline.zoneHeight}px;">
+              ${timeline.hourLinesHTML}
+              ${timeline.nowLineHTML}
+              ${timeline.eventsHTML}
+            </div>
+          </div>
+        </div>
+
+        <div class="section-label">Prochain rendez-vous</div>
+        <div class="next-event-card ${nextEvent ? nextEvent.cls : ""}">
+          <span class="next-event-icon">${nextEvent ? this.escapeHTML(nextEvent.icon) : "🕓"}</span>
+          <div class="next-event-body">
+            <div class="next-event-title">${nextEvent ? this.escapeHTML(nextEvent.title) : "Aucun événement à venir"}</div>
+            <div class="next-event-meta">${nextEvent ? this.escapeHTML(`${nextEvent.timeLabel} · ${nextEvent.sub}`) : "La journée est terminée"}</div>
+          </div>
+          <div class="next-event-countdown">
+            <span class="countdown-num">${nextEvent ? this.escapeHTML(nextEvent.countdown) : "-"}</span>
+            <span class="countdown-label">à venir</span>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  normalizeEvents(events) {
+    const durations = {
+      medication: 0.25,
+      meal: 0.75,
+      visit: 1.25,
+      activity: 1,
+      medical: 1,
+    };
+
+    const sorted = [...events].sort(
+      (a, b) => this.parseHour(a.time) - this.parseHour(b.time),
+    );
+    const rowEndTimes = [];
+
+    return sorted.map((event) => {
+      const start = this.parseHour(event.time);
+      const dur = durations[event.type] || 1;
+      const end = Math.min(start + dur, this.endHour);
+
+      let row = 0;
+      while (rowEndTimes[row] && rowEndTimes[row] > start) {
+        row++;
+      }
+      rowEndTimes[row] = end;
+
+      return {
+        ...event,
+        start,
+        dur,
+        row,
+        cls: this.getEventClass(event.type),
+      };
+    });
+  }
+
+  buildTimeline(events) {
+    const now = this.getReferenceHour();
+    const boundedNow = Math.max(this.startHour, Math.min(this.endHour, now));
+    const currentHourMark = Math.round(boundedNow);
+
+    const hoursHTML = Array.from(
+      { length: this.endHour - this.startHour + 1 },
+      (_, i) => this.startHour + i,
+    )
+      .map((hour) => {
+        const left = this.hToX(hour) - 32;
+        const isCurrent =
+          this.currentDay === "aujourd-hui" && hour === currentHourMark;
+        return `<div class="tl-hour-label${isCurrent ? " tl-now-label" : ""}" style="left:${left}px;">${isCurrent ? "Maintenant" : `${hour}h`}</div>`;
+      })
+      .join("");
+
+    const hourLinesHTML = Array.from(
+      { length: this.endHour - this.startHour + 1 },
+      (_, i) => this.startHour + i,
+    )
+      .map(
+        (hour) =>
+          `<div class="tl-hour-line" style="left:${this.hToX(hour)}px;"></div>`,
       )
       .join("");
 
-    return `
-            <div class="calendar-section">
-                <h3 class="calendar-title">Programme du ${this.getDayLabel()}</h3>
-                <div class="events-list">
-                    ${eventsHTML}
-                </div>
-            </div>
+    const rowHeight = 100;
+    const topOffset = 12;
+    const rowCount = Math.max(2, ...events.map((event) => event.row + 1), 2);
+    const zoneHeight = rowCount * rowHeight + topOffset;
+
+    const eventsHTML = events
+      .map((event) => {
+        const left = this.hToX(event.start);
+        const width = Math.max(event.dur * this.pxPerHour - 6, 88);
+        const top = topOffset + event.row * rowHeight;
+        const endHour = event.start + event.dur;
+        return `
+          <div class="tl-event ${event.cls}" style="left:${left}px; width:${width}px; top:${top}px; height:88px;">
+            <span class="tl-event-icon">${this.escapeHTML(event.icon)}</span>
+            <span class="tl-event-title">${this.escapeHTML(event.title)}</span>
+            <span class="tl-event-time">${this.formatHour(event.start)} - ${this.formatHour(endHour)}</span>
+            <span class="tl-event-sub">${this.escapeHTML(event.desc || "")}</span>
+          </div>
         `;
+      })
+      .join("");
+
+    const nowLineHTML =
+      this.currentDay === "aujourd-hui"
+        ? `
+          <div class="tl-now-line" style="left:${this.hToX(boundedNow)}px;">
+            <div class="tl-now-dot"></div>
+            <div class="now-badge">${this.formatHour(boundedNow)}</div>
+          </div>
+        `
+        : "";
+
+    return {
+      hoursHTML,
+      hourLinesHTML,
+      nowLineHTML,
+      eventsHTML,
+      zoneHeight,
+    };
+  }
+
+  getNextEvent(events) {
+    const now = this.getReferenceHour();
+    const future = events
+      .filter((event) => event.start > now)
+      .sort((a, b) => a.start - b.start);
+
+    if (!future.length) {
+      return null;
+    }
+
+    const next = future[0];
+    const diffMin = Math.round((next.start - now) * 60);
+    const diffHours = Math.floor(diffMin / 60);
+    const diffMins = diffMin % 60;
+
+    let countdown = `${diffMins} min`;
+    if (diffHours > 0) {
+      countdown = `${diffHours}h${diffMins > 0 ? ` ${diffMins}min` : ""}`;
+    }
+
+    return {
+      ...next,
+      timeLabel: this.formatHour(next.start),
+      sub: next.desc || "",
+      countdown,
+    };
+  }
+
+  getReferenceHour() {
+    if (this.currentDay === "hier") {
+      return 24;
+    }
+    if (this.currentDay === "demain") {
+      return 0;
+    }
+    const now = new Date();
+    return now.getHours() + now.getMinutes() / 60;
+  }
+
+  getEventClass(type) {
+    const map = {
+      medical: "evt-doctor",
+      meal: "evt-meal",
+      activity: "evt-walk",
+      visit: "evt-birthday",
+      medication: "evt-meds",
+    };
+    return map[type] || "evt-walk";
+  }
+
+  parseHour(timeValue) {
+    if (!timeValue || !timeValue.includes(":")) {
+      return this.startHour;
+    }
+    const [hh, mm] = timeValue.split(":").map((value) => Number(value));
+    return hh + mm / 60;
+  }
+
+  formatHour(value) {
+    const safeValue = Math.max(0, value);
+    const hh = Math.floor(safeValue);
+    const mm = Math.round((safeValue - hh) * 60);
+    return `${String(hh).padStart(2, "0")}h${String(mm).padStart(2, "0")}`;
+  }
+
+  hToX(hour) {
+    return (hour - this.startHour) * this.pxPerHour;
+  }
+
+  getWeekdayLabel() {
+    const map = {
+      "aujourd-hui": "Aujourd'hui",
+      hier: "Hier",
+      demain: "Demain",
+    };
+    return map[this.currentDay] || "Aujourd'hui";
+  }
+
+  getDayNameLabel(dayData) {
+    const datePart = dayData.date || "Dimanche 15 Mars";
+    return `${datePart} ${dayData.year || "2026"}`;
+  }
+
+  getSubDateLabel() {
+    if (this.currentDay === "hier") {
+      return "Vue journalière - jour précédent";
+    }
+    if (this.currentDay === "demain") {
+      return "Vue journalière - jour suivant";
+    }
+    return "Vue journalière - aujourd'hui";
+  }
+
+  getGreeting() {
+    if (this.currentDay === "hier") {
+      return "Voici le résumé de la journée d'hier.";
+    }
+    if (this.currentDay === "demain") {
+      return "Voici les rendez-vous prévus pour demain.";
+    }
+    return "";
+  }
+
+  escapeHTML(value) {
+    return String(value)
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#39;");
   }
 
   getDayLabel() {
@@ -407,10 +658,10 @@ class PageAccueil extends HTMLElement {
     const calendarNav = this.shadowRoot.getElementById("calendar-nav");
 
     if (newView === "jour") {
-      dayNav.style.display = "flex";
+      if (dayNav) dayNav.style.display = "flex";
       if (calendarNav) calendarNav.style.display = "none";
     } else {
-      dayNav.style.display = "none";
+      if (dayNav) dayNav.style.display = "none";
       if (calendarNav) calendarNav.style.display = "flex";
 
       // Update the label for the new view

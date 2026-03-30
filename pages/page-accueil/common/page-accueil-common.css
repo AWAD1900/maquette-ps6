@@ -23,6 +23,10 @@
     min-width: 0;
 }
 
+.accueil-layout--single {
+    grid-template-columns: minmax(0, 1fr);
+}
+
 .accueil-sidebar {
     background: #fffdf7;
     border: 1px solid #f2e3c8;
