@@ -436,6 +436,28 @@
     font-size: 11px;
 }
 
+.next-extra-activity {
+    margin: 0.4rem 1.25rem 1.2rem;
+    padding: 0.75rem 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--color-text-primary, #2c2a26);
+    background: var(--color-background-secondary, #f8f2e8);
+    border-radius: 10px;
+    border-left: 4px solid var(--pastel-blue-border);
+}
+
+.next-extra-icon {
+    font-size: 22px;
+}
+
+.next-extra-text {
+    font-weight: 600;
+}
+
 @media (max-width: 820px) {
     .cal-header {
         flex-direction: column;

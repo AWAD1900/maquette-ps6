@@ -72,6 +72,13 @@ class DayView {
             <span class="countdown-label">à venir</span>
           </div>
         </div>
+
+        ${nextEvent && nextEvent.extraActivity ? `
+        <div class="next-extra-activity">
+          <span class="next-extra-icon">${this.escapeHTML(nextEvent.extraActivity.icon)}</span>
+          <span class="next-extra-text">Bientôt : ${this.escapeHTML(nextEvent.extraActivity.title)}</span>
+        </div>
+        ` : ""}
       </div>
     `;
   }
@@ -256,9 +263,9 @@ class DayView {
       return null;
     }
 
-    // Choisir l'événement le plus proche dans le temps
-    candidates.sort((a, b) => a.diffMin - b.diffMin);
-    const best = candidates[0];
+  // Choisir l'événement le plus proche dans le temps
+  candidates.sort((a, b) => a.diffMin - b.diffMin);
+  const best = candidates[0];
 
     const diffMin = best.diffMin;
     const diffHours = Math.floor(diffMin / 60);
@@ -283,6 +290,31 @@ class DayView {
 
     const base = best.event;
 
+    // Chercher une autre activité IMPORTANTE à venir (priorité aux rdv médicaux/visites),
+    // pour l'afficher aussi dans la section.
+    const isImportant = (ev) => ev.type === "medical" || ev.type === "visit";
+
+    let extraActivity = null;
+    // D'abord, on cherche un événement important (médecin / visite)
+    for (let i = 1; i < candidates.length; i++) {
+      const cand = candidates[i];
+      if (cand.event && isImportant(cand.event)) {
+        extraActivity = cand.event;
+        break;
+      }
+    }
+
+    // Sinon, on retombe sur une activité classique
+    if (!extraActivity) {
+      for (let i = 1; i < candidates.length; i++) {
+        const cand = candidates[i];
+        if (cand.event && cand.event.type === "activity") {
+          extraActivity = cand.event;
+          break;
+        }
+      }
+    }
+
     return {
       icon: base.icon,
       title: base.title,
@@ -290,6 +322,14 @@ class DayView {
       timeLabel,
       countdown,
       cls: this.getEventClass(base.type),
+      extraActivity: extraActivity
+        ? {
+            icon: extraActivity.icon,
+            title: extraActivity.title,
+            sub: extraActivity.desc || "",
+            type: extraActivity.type,
+          }
+        : null,
     };
   }
 
