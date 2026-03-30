@@ -1,0 +1,124 @@
+/* Month View Styles */
+
+.month-view {
+    background: white;
+    border-radius: 15px;
+    padding: 1rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    width: 100%;
+}
+
+.month-title {
+    text-align: center;
+    font-size: 1.2rem;
+    margin: 0 0 0.8rem 0;
+    color: #333;
+    font-weight: 700;
+}
+
+.month-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+/* Month Weekday Headers */
+.month-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.35rem;
+    margin-bottom: 0.5rem;
+}
+
+.month-weekday {
+    text-align: center;
+    font-weight: 700;
+    color: #5db0ff;
+    padding: 0.4rem 0.25rem;
+    font-size: 0.9rem;
+    background: #f0f7ff;
+    border-radius: 10px;
+    letter-spacing: 0.5px;
+    text-transform: capitalize;
+}
+
+/* Month Days Grid */
+.month-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.35rem;
+}
+
+/* Month Day Cell */
+.month-day {
+    height: 80px;
+    background: #f9f9f9;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 0.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    transition: all 0.2s;
+    overflow: hidden;
+}
+
+.month-day.empty {
+    background: transparent;
+    border: none;
+}
+
+.month-day.today {
+    background: #fff3e0;
+    border: 2px solid #e7a048;
+}
+
+.month-day.has-events {
+    border: 1px solid #d0d0d0;
+}
+
+.month-day:hover:not(.empty) {
+    background: #f0f7ff;
+    box-shadow: 0 2px 6px rgba(93, 176, 255, 0.15);
+    cursor: pointer;
+}
+
+.month-day-number {
+    font-weight: 700;
+    color: #333;
+    font-size: 0.8rem;
+    line-height: 1;
+}
+
+/* Month Day Events */
+.month-day-events {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.month-event {
+    font-size: 1.2rem;
+    opacity: 0.95;
+}
+
+/* Event Type Colors */
+.month-event.event-medication {
+    color: #ef4444;
+}
+
+.month-event.event-medical {
+    color: #10b981;
+}
+
+.month-event.event-visit {
+    color: #d946ef;
+}
+
+.month-event.event-meal {
+    color: #e7a048;
+}
+
+.month-event.event-activity {
+    color: #3b82f6;
+}

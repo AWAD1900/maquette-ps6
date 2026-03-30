@@ -1,0 +1,254 @@
+/* Day View Styles */
+
+.top-cards {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+    margin-bottom: 0.75rem;
+}
+
+.date-card {
+    flex: 2;
+    background: linear-gradient(135deg, #e7a048 0%, #d8903c 100%);
+    border-radius: 15px;
+    padding: 1.8rem;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.date-card::after {
+    content: '';
+    position: absolute;
+    right: -20px;
+    bottom: -20px;
+    width: 150px;
+    height: 150px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 50%;
+}
+
+.date-card .time {
+    font-size: 1.5rem;
+    font-weight: 900;
+    margin: 0 0 8px 0;
+    font-family: serif;
+    line-height: 1;
+}
+
+.date-card .date {
+    font-size: 1.7rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.date-card .year {
+    font-size: 1.2rem;
+    opacity: 0.8;
+    margin: 4px 0 0 0;
+}
+
+/* Weather Card */
+.weather-card {
+    flex: 1;
+    background: white;
+    border-radius: 15px;
+    padding: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.weather-card .sun-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.weather-card .temp {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin: 0;
+    color: #333;
+}
+
+.weather-card .weather-text {
+    color: #666;
+    margin: 5px 0;
+    font-size: 0.9rem;
+}
+
+.weather-card .location {
+    font-size: 12px;
+    color: #999;
+    margin: 0;
+}
+
+/* Calendar Section & Events */
+.calendar-section {
+    width: 100%;
+    background: white;
+    border-radius: 15px;
+    padding: 1rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+}
+
+.calendar-title {
+    font-size: 1.1rem;
+    color: #333;
+    margin: 0 0 0.8rem 0;
+    font-weight: 700;
+}
+
+.events-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+}
+
+/* Event Card */
+.event-card {
+    display: flex;
+    gap: 1rem;
+    padding: 0.9rem;
+    background: #f5f9fc;
+    border-radius: 12px;
+    border-left: 4px solid #5db0ff;
+    transition: all 0.2s;
+    align-items: center;
+}
+
+.event-card:hover {
+    background: #eef4fa;
+    box-shadow: 0 2px 6px rgba(93, 176, 255, 0.15);
+}
+
+.event-icon {
+    font-size: 1.4rem;
+    min-width: 36px;
+    text-align: center;
+}
+
+.event-time {
+    font-weight: 700;
+    color: #5db0ff;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    min-width: 36px;
+}
+
+/* Days sidebar (compact list of days) */
+.days-sidebar {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.days-sidebar .day-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.6rem 0.8rem;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    border-left: 4px solid #e6e6e6;
+    gap: 0.6rem;
+}
+
+.days-sidebar .day-item {
+    cursor: pointer;
+    transition: background-color 0.12s, transform 0.08s;
+}
+
+.days-sidebar .day-item:hover {
+    background-color: #f6fbff;
+    transform: translateY(-2px);
+}
+
+.days-sidebar .day-item .day-label {
+    font-weight: 700;
+    color: #333;
+    font-size: 0.95rem;
+}
+
+.days-sidebar .day-item .day-meta {
+    text-align: right;
+    font-size: 0.85rem;
+    color: #777;
+}
+
+.event-details h4 {
+    margin: 0 0 5px 0;
+    color: #333;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.event-details p {
+    margin: 0;
+    color: #666;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+/* Event Type Colors - Meals */
+.event-card.event-meal {
+    border-left-color: #e7a048;
+    background: #fff5ed;
+}
+
+.event-card.event-meal:hover {
+    background: #ffefd5;
+    box-shadow: 0 2px 6px rgba(231, 160, 72, 0.15);
+}
+
+/* Event Type Colors - Medication */
+.event-card.event-medication {
+    border-left-color: #ef4444;
+    background: #fef2f2;
+}
+
+.event-card.event-medication:hover {
+    background: #fee2e2;
+    box-shadow: 0 2px 6px rgba(239, 68, 68, 0.15);
+}
+
+/* Event Type Colors - Visits */
+.event-card.event-visit {
+    border-left-color: #d946ef;
+    background: #faf5ff;
+}
+
+.event-card.event-visit:hover {
+    background: #f3e8ff;
+    box-shadow: 0 2px 6px rgba(217, 70, 239, 0.15);
+}
+
+/* Event Type Colors - Activities */
+.event-card.event-activity {
+    border-left-color: #3b82f6;
+    background: #eff6ff;
+}
+
+.event-card.event-activity:hover {
+    background: #dbeafe;
+    box-shadow: 0 2px 6px rgba(59, 130, 246, 0.15);
+}
+
+/* Event Type Colors - Medical */
+.event-card.event-medical {
+    border-left-color: #10b981;
+    background: #f0fdf4;
+}
+
+.event-card.event-medical:hover {
+    background: #dcfce7;
+    box-shadow: 0 2px 6px rgba(16, 185, 129, 0.15);
+}

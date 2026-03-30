@@ -5,7 +5,13 @@ class DayView {
     this.currentDay = currentDay;
     this.startHour = 7;
     this.endHour = 21;
-    this.pxPerHour = 64;
+    const hoursSpan = this.endHour - this.startHour;
+    const viewportWidth =
+      typeof window !== "undefined" && window.innerWidth
+        ? window.innerWidth
+        : 896; // valeur de repli
+    // Calcule dynamiquement la largeur de la frise pour occuper l'écran
+    this.pxPerHour = viewportWidth / hoursSpan;
     this.totalPx = (this.endHour - this.startHour) * this.pxPerHour;
   }
 
@@ -14,7 +20,13 @@ class DayView {
       this.eventsData[this.currentDay] || this.eventsData["aujourd-hui"];
     const events = this.normalizeEvents(dayData.events || []);
     const timeline = this.buildTimeline(events);
-    const nextEvent = this.getNextEvent(events);
+    // Pour le prochain rendez-vous, on peut aller chercher une activité
+    // dans une journée proche (aujourd'hui ou demain) et afficher un
+    // libellé simple comme "Bientôt" ou "Très bientôt" au lieu d'une heure.
+    const nextEvent =
+      this.currentDay === "aujourd-hui"
+        ? this.getNextEventFromNearbyDays()
+        : this.getNextEvent(events);
 
     return `
       <div class="cal-root">
@@ -26,17 +38,11 @@ class DayView {
           </div>
         </div>
 
-        <div class="greeting-band">
-          <span class="greeting-emoji">🌸</span>
-          <span class="greeting-text">${this.escapeHTML(this.getGreeting())}</span>
-        </div>
-
         <div class="legend">
           <div class="legend-item"><span class="legend-dot" style="background:#7bbde0"></span>Médecin</div>
           <div class="legend-item"><span class="legend-dot" style="background:#f0a05a"></span>Repas</div>
           <div class="legend-item"><span class="legend-dot" style="background:#72c28a"></span>Activité</div>
           <div class="legend-item"><span class="legend-dot" style="background:#e88faa"></span>Visite</div>
-          <div class="legend-item"><span class="legend-dot" style="background:#e0c840"></span>Médicaments</div>
         </div>
 
         <div class="section-label">Frise du jour</div>
@@ -46,6 +52,7 @@ class DayView {
               ${timeline.hoursHTML}
             </div>
             <div class="tl-events-zone" style="width:${this.totalPx}px; height:${timeline.zoneHeight}px;">
+              ${timeline.periodsHTML}
               ${timeline.hourLinesHTML}
               ${timeline.nowLineHTML}
               ${timeline.eventsHTML}
@@ -100,6 +107,7 @@ class DayView {
         dur,
         row,
         cls: this.getEventClass(event.type),
+        done: !!event.done,
       };
     });
   }
@@ -108,16 +116,34 @@ class DayView {
     const now = this.getReferenceHour();
     const boundedNow = Math.max(this.startHour, Math.min(this.endHour, now));
     const currentHourMark = Math.round(boundedNow);
+    // Bande unique pleine largeur pour la période actuelle (Matin / Après-midi / Soir ...)
+    const currentPeriodLabel = this.formatHourCoarse(now);
 
-    const hoursHTML = Array.from(
-      { length: this.endHour - this.startHour + 1 },
-      (_, i) => this.startHour + i,
-    )
-      .map((hour) => {
-        const left = this.hToX(hour) - 32;
-        const isCurrent =
-          this.currentDay === "aujourd-hui" && hour === currentHourMark;
-        return `<div class="tl-hour-label${isCurrent ? " tl-now-label" : ""}" style="left:${left}px;">${isCurrent ? "Maintenant" : `${hour}h`}</div>`;
+    // Un seul bandeau centré, un peu moins large que la frise pour alléger visuellement
+    const bandWidth = this.totalPx * 0.9;
+    const bandLeft = (this.totalPx - bandWidth) / 2;
+    const periodsHTML = `
+      <div class="tl-period" style="left:${bandLeft}px; width:${bandWidth}px;">
+        <span class="tl-period-label">${currentPeriodLabel}</span>
+      </div>
+    `;
+
+    // Affiche aussi les différentes périodes (Matin / Midi / Après-midi / Soir / Nuit)
+    // le long de la frise, en haut, sans répétition par heure
+    const hoursHTML = [
+      { label: "Matin", start: 6, end: 12 },
+      { label: "Midi", start: 12, end: 15 },
+      { label: "Après-midi", start: 15, end: 18 },
+      { label: "Soir", start: 18, end: 22 },
+      { label: "Nuit", start: 22, end: 24 },
+    ]
+      .map((p) => {
+        const periodStart = Math.max(this.startHour, p.start);
+        const periodEnd = Math.min(this.endHour, p.end);
+        if (periodEnd <= periodStart) return "";
+        const left = this.hToX(periodStart);
+        const width = this.hToX(periodEnd) - this.hToX(periodStart);
+        return `<div class="tl-period-label-top" style="left:${left}px; width:${width}px;"><span>${p.label}</span></div>`;
       })
       .join("");
 
@@ -143,10 +169,10 @@ class DayView {
         const top = topOffset + event.row * rowHeight;
         const endHour = event.start + event.dur;
         return `
-          <div class="tl-event ${event.cls}" style="left:${left}px; width:${width}px; top:${top}px; height:88px;">
+          <div class="tl-event ${event.cls}${event.done ? ' tl-event-done' : ''}" style="left:${left}px; width:${width}px; top:${top}px; height:88px;">
             <span class="tl-event-icon">${this.escapeHTML(event.icon)}</span>
             <span class="tl-event-title">${this.escapeHTML(event.title)}</span>
-            <span class="tl-event-time">${this.formatHour(event.start)} - ${this.formatHour(endHour)}</span>
+            <span class="tl-event-time">${this.formatHourCoarse(event.start)}</span>
             <span class="tl-event-sub">${this.escapeHTML(event.desc || "")}</span>
           </div>
         `;
@@ -158,13 +184,14 @@ class DayView {
         ? `
           <div class="tl-now-line" style="left:${this.hToX(boundedNow)}px;">
             <div class="tl-now-dot"></div>
-            <div class="now-badge">${this.formatHour(boundedNow)}</div>
+            <div class="now-badge">${this.formatHourCoarse(boundedNow)}</div>
           </div>
         `
         : "";
 
     return {
       hoursHTML,
+      periodsHTML,
       hourLinesHTML,
       nowLineHTML,
       eventsHTML,
@@ -194,9 +221,75 @@ class DayView {
 
     return {
       ...next,
-      timeLabel: this.formatHour(next.start),
+      timeLabel: this.formatHourCoarse(next.start),
       sub: next.desc || "",
       countdown,
+    };
+  }
+
+  // Prochain événement en regardant une journée proche (aujourd'hui / demain)
+  // et en simplifiant l'indication temporelle ("Très bientôt", "Bientôt"...).
+  getNextEventFromNearbyDays() {
+    const dayOrder = ["aujourd-hui", "demain"]; // journées proches
+
+    const now = new Date();
+    const currentHour = now.getHours() + now.getMinutes() / 60;
+
+    const candidates = [];
+
+    dayOrder.forEach((dayKey, index) => {
+      const dayOffset = index; // 0 = aujourd'hui, 1 = demain
+      const dayData = this.eventsData[dayKey];
+      if (!dayData || !Array.isArray(dayData.events)) return;
+
+      dayData.events.forEach((event) => {
+        const start = this.parseHour(event.time);
+        // différence en minutes entre maintenant et l'événement
+        const diffMin = Math.round((dayOffset * 24 + (start - currentHour)) * 60);
+        if (diffMin > 0) {
+          candidates.push({ event, dayKey, start, dayOffset, diffMin });
+        }
+      });
+    });
+
+    if (!candidates.length) {
+      return null;
+    }
+
+    // Choisir l'événement le plus proche dans le temps
+    candidates.sort((a, b) => a.diffMin - b.diffMin);
+    const best = candidates[0];
+
+    const diffMin = best.diffMin;
+    const diffHours = Math.floor(diffMin / 60);
+    const remainingMin = diffMin % 60;
+
+    let countdown = `${remainingMin} min`;
+    if (diffHours > 0) {
+      countdown = `${diffHours}h${remainingMin > 0 ? ` ${remainingMin}min` : ""}`;
+    }
+
+    // Libellé simplifié pour remplacer l'heure précise
+    let timeLabel = "À venir";
+    if (diffMin <= 60) {
+      timeLabel = "Très bientôt";
+    } else if (diffMin <= 3 * 60) {
+      timeLabel = "Bientôt";
+    } else if (best.dayOffset === 0) {
+      timeLabel = "Dans la journée";
+    } else if (best.dayOffset === 1) {
+      timeLabel = "Demain";
+    }
+
+    const base = best.event;
+
+    return {
+      icon: base.icon,
+      title: base.title,
+      sub: base.desc || "",
+      timeLabel,
+      countdown,
+      cls: this.getEventClass(base.type),
     };
   }
 
@@ -237,6 +330,17 @@ class DayView {
     return `${String(hh).padStart(2, "0")}h${String(mm).padStart(2, "0")}`;
   }
 
+  // Retourne un label grossier pour une heure donnée (Matin / Midi / Après-midi / Soir / Nuit)
+  formatHourCoarse(value) {
+    const safeValue = Math.max(0, value);
+    const hh = Math.floor(safeValue) % 24;
+    if (hh >= 6 && hh < 12) return "Matin";
+    if (hh >= 12 && hh < 15) return "Midi";
+    if (hh >= 15 && hh < 18) return "Après-midi";
+    if (hh >= 18 && hh < 22) return "Soir";
+    return "Nuit";
+  }
+
   hToX(hour) {
     return (hour - this.startHour) * this.pxPerHour;
   }
@@ -262,7 +366,8 @@ class DayView {
     if (this.currentDay === "demain") {
       return "Vue journalière - jour suivant";
     }
-    return "Vue journalière - aujourd'hui";
+    // Hide the 'Vue journalière' label for today to reduce clutter
+    return "";
   }
 
   getGreeting() {
@@ -362,12 +467,23 @@ class WeekView {
     const visibleEvents = events.slice(0, 5);
     const hiddenCount = events.length - 5;
 
+    // helper local pour transformer HH:mm -> label grossier
+    const coarseFromTime = (time) => {
+      if (!time) return "";
+      const hh = Number(time.split(":")[0]);
+      if (hh >= 6 && hh < 12) return "Matin";
+      if (hh >= 12 && hh < 15) return "Midi";
+      if (hh >= 15 && hh < 18) return "Après-midi";
+      if (hh >= 18 && hh < 22) return "Soir";
+      return "Nuit";
+    };
+
     let html = visibleEvents
       .map(
         (event) => `
             <div class="week-event event-${event.type}">
                 <div class="week-event-header">
-                    <span class="week-event-time">${event.time}</span>
+                    <span class="week-event-time">${coarseFromTime(event.time)}</span>
                     <span class="week-event-icon">${event.icon}</span>
                 </div>
                 <span class="week-event-title">${event.title}</span>
@@ -706,10 +822,18 @@ class PageAccueil extends HTMLElement {
         weather: null,
         events: [
           {
+            icon: "📝",
+            time: "08:00",
+            title: "Tâche faite",
+            desc: "Activité déjà réalisée",
+            type: "activity",
+            done: true,
+          },
+          {
             icon: "🍽️",
             time: "09:00",
             title: "Petit-déjeuner",
-            desc: "Cuisine - Préparer le petit-déjeuner ensemble",
+            desc: "Repas du matin",
             type: "meal",
           },
           {
@@ -720,11 +844,11 @@ class PageAccueil extends HTMLElement {
             type: "activity",
           },
           {
-            icon: "💊",
+            icon: "🎲",
             time: "11:30",
-            title: "Médicaments",
-            desc: "Prendre les médicaments du matin",
-            type: "medication",
+            title: "Jeu de société",
+            desc: "Moment ludique en famille",
+            type: "activity",
           },
           {
             icon: "👥",
@@ -791,11 +915,11 @@ class PageAccueil extends HTMLElement {
             type: "activity",
           },
           {
-            icon: "💊",
+            icon: "🎵",
             time: "18:00",
-            title: "Médicaments",
-            desc: "Prendre les médicaments du soir",
-            type: "medication",
+            title: "Musique relaxante",
+            desc: "Écouter ses chansons préférées",
+            type: "activity",
           },
           {
             icon: "🍽️",

@@ -1,0 +1,20 @@
+<template id="page-accueil-jour-template">
+    <style></style>
+    <header class="page-header"></header>
+    <div class="body-layout">
+        <aside class="leftbar">
+            <div class="view-selector">
+                <button class="view-btn" data-view="jour" title="Jour">📅 Jour</button>
+                <button class="view-btn" data-view="semaine" title="Semaine">📊 Semaine</button>
+                <button class="view-btn" data-view="mois" title="Mois">📆 Mois</button>
+            </div>
+            <div class="day-navigation">
+                <button class="nav-btn prev-day" title="Jour précédent">← Hier</button>
+                <button class="nav-btn curr-day" title="Jour actuel">Auj.</button>
+                <button class="nav-btn next-day" title="Jour suivant">Demain →</button>
+            </div>
+        </aside>
+        <main class="content" id="day-content"></main>
+    </div>
+    <div class="day-modal-backdrop" style="display: none;"></div>
+</template>
